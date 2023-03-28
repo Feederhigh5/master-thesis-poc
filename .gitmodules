@@ -1,3 +1,0 @@
-[submodule "bank-of-anthos"]
-	path = bank-of-anthos
-	url = git@github.com:GoogleCloudPlatform/bank-of-anthos.git
