@@ -23,11 +23,23 @@ Application:
     5. Install kube-ps1 plugin
     6. `vim .zshrc`
         ```
+        export ZSH="$HOME/.oh-my-zsh"
+
+        ZSH_THEME="robbyrussell"
+
         plugins=(git kubectl kube-ps1 kubectx)
+
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
         FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
         autoload -Uz compinit && compinit
+
         source $ZSH/oh-my-zsh.sh
+
         PROMPT='$(kube_ps1)'$PROMPT
+
+        alias kns="kubens"
+        alias kctx="kubectx"
         ```
 
 2. Install WSL2
@@ -72,7 +84,26 @@ Application:
       client-certificate: /mnt/c/Users/Rubi/.minikube/profiles/minikube/client.crt 
       client-key: /mnt/c/Users/Rubi/.minikube/profiles/minikube/client.key 
   ```
-7.  minikube mount D:\minikube:/data/pv-storage
+7.  `minikube mount D:\minikube:/data/pv-storage` (funktioniert nicht mit mongodb)
+8. Install argocd
+    ```
+    helm repo add argo https://argoproj.github.io/argo-helm
+    helm install --namespace argocd argo argo/argo-cd
+    ```
+9. Add repository to argocd
+10. Create app-of-apps:
+    ```
+    project: default
+    source:
+      repoURL: 'https://github.com/Feederhigh5/master-thesis-gitops.git'
+      path: .
+      targetRevision: main
+    destination:
+      server: 'https://kubernetes.default.svc'
+    syncPolicy:
+      automated:
+        prune: true
+    ```
 
 ## Litmus Realted
 ### Create Workflow via GraphQL

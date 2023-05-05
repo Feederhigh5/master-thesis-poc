@@ -27,4 +27,4 @@ spec:
       volumes:
         - name: datadir
           persistentVolumeClaim:
-            claimName: chaos-mongodb
+            claimName: litmus-mongodb
