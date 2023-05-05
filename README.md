@@ -1,9 +1,81 @@
+# Implementation README
 
+- Tooling:
+Gitops:
+  - ArgoCD?
+Observability:
+  - Prometheus
+  - Elastic Search/Logstash/Kibana oder fluentd
+Chaos:  
+  - Litmus
+Service Mesh:
+  - Linkerd/Istio?
+Application:
+  - Bank of Anthos
 
+## Lokales Windows Setup
 
+1. Ubuntu on windows
+    1. Install git 
+    2. Install oh-my-zsh
+    3. Install brew
+    4. Install kubectl plugin
+    5. Install kube-ps1 plugin
+    6. `vim .zshrc`
+        ```
+        plugins=(git kubectl kube-ps1 kubectx)
+        FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+        autoload -Uz compinit && compinit
+        source $ZSH/oh-my-zsh.sh
+        PROMPT='$(kube_ps1)'$PROMPT
+        ```
 
+2. Install WSL2
+3. Install Docker Desktop
+4. Install minikube
+5. Copy kubectl config in ubuntu on windows
+    ```
+    kubectl config view --context=minikube
+    ```
+6. Change paths
+  ```
+  apiVersion: v1
+  clusters:
+  - cluster:
+      certificate-authority: /mnt/c/Users/Rubi/.minikube/ca.crt 
+      extensions:
+      - extension:
+          last-update: Thu, 27 Apr 2023 17:29:01 CEST
+          provider: minikube.sigs.k8s.io
+          version: v1.30.1
+        name: cluster_info
+      server: https://127.0.0.1:64151
+    name: minikube
+  contexts:
+  - context:
+      cluster: minikube
+      extensions:
+      - extension:
+          last-update: Thu, 27 Apr 2023 17:29:01 CEST
+          provider: minikube.sigs.k8s.io
+          version: v1.30.1
+        name: context_info
+      namespace: default
+      user: minikube
+    name: minikube
+  current-context: minikube
+  kind: Config
+  preferences: {}
+  users:
+  - name: minikube
+    user:
+      client-certificate: /mnt/c/Users/Rubi/.minikube/profiles/minikube/client.crt 
+      client-key: /mnt/c/Users/Rubi/.minikube/profiles/minikube/client.key 
+  ```
+7.  minikube mount D:\minikube:/data/pv-storage
 
-# Create Workflow via GraphQL
+## Litmus Realted
+### Create Workflow via GraphQL
 
 ```
 mutation createChaosWorkflow($chaosWorkflowRequest: ChaosWorkFlowRequest!) {
@@ -37,7 +109,7 @@ Query Variable:
 ```
 
 
-## Manually create one liner JSON
+### Manually create one liner JSON
 
 1. Convert yaml to json
     ```
@@ -55,7 +127,7 @@ Query Variable:
 kdelp -n litmus --field-selector=status.phase==Succeeded 
 ```
 
-# GraphQL list workflows
+### GraphQL list workflows
 
 ```
 # Write your query or mutation here
@@ -76,7 +148,7 @@ query listWorkflows($workflowInput: ListWorkflowsRequest!){
 }
 ```
 
-# GraphQL list clusters
+### GraphQL list clusters
 ```
 query {
   listClusters(projectID: "a8113699-50f2-463e-b340-0223a59f6f6f") {
