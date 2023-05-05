@@ -340,5 +340,7 @@ mongodb:
     enabled: false
     prometheusRule:
       enabled: false
-  volumePermissions.enabled: true
-  volumePermissions.securityContext.runAsUser: auto
+  # volumePermissions.enabled: true
+  # volumePermissions.securityContext.runAsUser: auto
+  persistence:
+    existingClaim: "litmus-mongodb"
