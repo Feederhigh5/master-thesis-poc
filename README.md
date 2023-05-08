@@ -16,10 +16,10 @@ Application:
 ## Lokales Windows Setup
 
 1. Ubuntu on windows
-    1. Install git 
-    2. Install oh-my-zsh
-    3. Install brew
-    4. Install kubectl plugin
+    1. Install zsh (sudo apt-get install zsh)
+    2. Install oh-my-zsh (sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)")
+    3. Install brew https://docs.brew.sh/Homebrew-on-Linux
+    4. Install kubectx `brew install kubectx`
     5. Install kube-ps1 plugin
     6. `vim .zshrc`
         ```
