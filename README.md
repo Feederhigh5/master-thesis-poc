@@ -105,6 +105,26 @@ Application:
         prune: true
     ```
 
+## Helm related
+
+### search helm charts from repo
+```
+helm search repo prometheus-community/prometheus
+```
+
+### Inspect helm templates from repo
+
+```
+helm template repo grafana/grafana | code -
+```
+
+### Show values from repo helm chart
+
+```
+helm show values grafana/grafana | code - 
+```
+
+
 ## Litmus Realted
 ### Create Workflow via GraphQL
 
@@ -153,7 +173,7 @@ Query Variable:
 3. Correct quotation marks
     **replace "** `(?<!\\)"` with `\"`
 
-# Delete completed pods
+### Delete completed pods
 ```
 kdelp -n litmus --field-selector=status.phase==Succeeded 
 ```
