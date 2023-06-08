@@ -93,16 +93,21 @@ Application:
 9. Add repository to argocd
 10. Create app-of-apps:
     ```
-    project: default
-    source:
-      repoURL: 'https://github.com/Feederhigh5/master-thesis-gitops.git'
-      path: .
-      targetRevision: main
-    destination:
-      server: 'https://kubernetes.default.svc'
-    syncPolicy:
-      automated:
-        prune: true
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: 'app-of-apps'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/Feederhigh5/master-thesis-gitops.git'
+        path: .
+        targetRevision: main
+      destination:
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
     ```
 
 ## Helm related
