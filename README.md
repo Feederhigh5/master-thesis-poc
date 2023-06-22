@@ -45,6 +45,9 @@ Application:
 2. Install WSL2
 3. Install Docker Desktop
 4. Install minikube
+  - hyperv
+    1. minikube start -p hypervTest --memory=30720 --cpus=max --driver=hyperv --disk-size=200g --container-runtime=containerd
+    2. Get-NetIPInterface | where {$_.InterfaceAlias -eq 'vEthernet (WSL)' -or $_.InterfaceAlias -eq 'vEthernet (Default Switch)'} | Set-NetIPInterface -Forwarding Enable
 5. Copy kubectl config in ubuntu on windows
     ```
     kubectl config view --context=minikube
@@ -61,7 +64,7 @@ Application:
           provider: minikube.sigs.k8s.io
           version: v1.30.1
         name: cluster_info
-      server: https://127.0.0.1:64151
+      server: https://127.0.0.1:55108
     name: minikube
   contexts:
   - context:
@@ -109,6 +112,26 @@ Application:
         automated:
           prune: true
     ```
+
+## Prometheus
+When debugging locally, I am using hostPath volumes for the persistent Volumes. They do not support SecurityContext fsGroup configurations and thus pods require root access or permission changes. InitContainer does not work, becuase the Pod is set to run as NonRoot.
+
+Therfore, I am using the debug pod to change the directory to the correct user id:
+
+```
+k exec -it debug-pod-5bb97b879-mrwbz -- chown -R 65534:65534 /volume
+```
+### Grafana
+1. Configure Prometheus as a data source with the url:
+```
+http://prometheus-server.prometheus.svc.cluster.local:80
+```
+
+Highest entry in dashboards is always with label pod="". When investigating, metrics come from cadvisor. They can be fetched with
+```
+kubectl get --raw /api/v1/nodes/minikube/proxy/metrics/cadvisor| grep container_memory_working_set_bytes | grep 'pod=""'
+```
+Tried to find quick fix. Was not possible. Filtering metrics in grafana with pod!="" now
 
 ## Helm related
 
