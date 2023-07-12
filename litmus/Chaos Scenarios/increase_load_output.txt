@@ -1,0 +1,63 @@
+-------------Start Trial 1 2023-07-12 11:08:11
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   112  100    84  100    28   1328    442 --:--:-- --:--:-- --:--:--  1806
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos injected: 2023-07-12 11:08:41
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   109  100    84  100    25   1401    417 --:--:-- --:--:-- --:--:--  1847
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos Removed: 2023-07-12 11:10:41
+-------------Cool Down Time 2023-07-12 11:10:41
+-------------Trial 1 over 2023-07-12 11:15:41
+-------------Start Trial 2 2023-07-12 11:15:41
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   112  100    84  100    28   1686    562 --:--:-- --:--:-- --:--:--  2285
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos injected: 2023-07-12 11:16:11
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   109  100    84  100    25   1384    412 --:--:-- --:--:-- --:--:--  1816
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos Removed: 2023-07-12 11:18:11
+-------------Cool Down Time 2023-07-12 11:18:11
+-------------Trial 2 over 2023-07-12 11:23:11
+-------------Start Trial 3 2023-07-12 11:23:11
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   112  100    84  100    28   1495    498 --:--:-- --:--:-- --:--:--  2036
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos injected: 2023-07-12 11:23:42
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   109  100    84  100    25   1397    415 --:--:-- --:--:-- --:--:--  1847
+{
+  "host": "http://frontend",
+  "message": "Swarming started",
+  "success": true
+}
+-------------Chaos Removed: 2023-07-12 11:25:42
+-------------Cool Down Time 2023-07-12 11:25:42
+-------------Trial 3 over 2023-07-12 11:30:42
