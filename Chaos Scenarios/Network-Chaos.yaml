@@ -1,0 +1,790 @@
+kind: Workflow
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: experiment-network-1689193005
+  namespace: litmus
+  creationTimestamp: null
+  labels:
+    cluster_id: 93334d5c-090b-4105-828d-f4d792cd0d60
+    subject: experiment-network_litmus
+    workflow_id: 4a595a93-a1da-45d7-a538-13e6980c3f1e
+    workflows.argoproj.io/controller-instanceid: 93334d5c-090b-4105-828d-f4d792cd0d60
+spec:
+  templates:
+    - name: custom-chaos
+      inputs: {}
+      outputs: {}
+      metadata: {}
+      steps:
+        - - name: install-chaos-experiments
+            template: install-chaos-experiments
+            arguments: {}
+        - - name: pod-network-latency-54e
+            template: pod-network-latency-54e
+            arguments: {}
+        - - name: pod-network-latency-81c
+            template: pod-network-latency-81c
+            arguments: {}
+        - - name: pod-network-latency-a6i
+            template: pod-network-latency-a6i
+            arguments: {}
+    - name: install-chaos-experiments
+      inputs:
+        artifacts:
+          - name: pod-network-latency-54e
+            path: /tmp/pod-network-latency-54e.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                description:
+                  message: |
+                    Injects network latency on pods belonging to an app deployment
+                kind: ChaosExperiment
+
+                metadata:
+                  name: pod-network-latency
+                  labels:
+                    name: pod-network-latency
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: chaosexperiment
+                    app.kubernetes.io/version: 2.14.0
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods
+                        verbs:
+                          - create
+                          - delete
+                          - get
+                          - list
+                          - patch
+                          - update
+                          - deletecollection
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - events
+                        verbs:
+                          - create
+                          - get
+                          - list
+                          - patch
+                          - update
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - configmaps
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/log
+                        verbs:
+                          - get
+                          - list
+                          - watch
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/exec
+                        verbs:
+                          - get
+                          - list
+                          - create
+                      - apiGroups:
+                          - apps
+                        resources:
+                          - deployments
+                          - statefulsets
+                          - replicasets
+                          - daemonsets
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - apps.openshift.io
+                        resources:
+                          - deploymentconfigs
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - replicationcontrollers
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - argoproj.io
+                        resources:
+                          - rollouts
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - batch
+                        resources:
+                          - jobs
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - delete
+                          - deletecollection
+                      - apiGroups:
+                          - litmuschaos.io
+                        resources:
+                          - chaosengines
+                          - chaosexperiments
+                          - chaosresults
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - patch
+                          - update
+                          - delete
+                    image: litmuschaos/go-runner:2.14.0
+                    imagePullPolicy: Always
+                    args:
+                      - -c
+                      - ./experiments -name pod-network-latency
+                    command:
+                      - /bin/bash
+                    env:
+                      - name: TARGET_CONTAINER
+                        value: ""
+                      - name: NETWORK_INTERFACE
+                        value: eth0
+                      - name: LIB_IMAGE
+                        value: litmuschaos/go-runner:2.14.0
+                      - name: TC_IMAGE
+                        value: gaiadocker/iproute2
+                      - name: NETWORK_LATENCY
+                        value: "2000"
+                      - name: TOTAL_CHAOS_DURATION
+                        value: "60"
+                      - name: RAMP_TIME
+                        value: ""
+                      - name: JITTER
+                        value: "0"
+                      - name: LIB
+                        value: litmus
+                      - name: PODS_AFFECTED_PERC
+                        value: ""
+                      - name: TARGET_PODS
+                        value: ""
+                      - name: CONTAINER_RUNTIME
+                        value: docker
+                      - name: DESTINATION_IPS
+                        value: ""
+                      - name: DESTINATION_HOSTS
+                        value: ""
+                      - name: SOCKET_PATH
+                        value: /var/run/docker.sock
+                      - name: NODE_LABEL
+                        value: ""
+                      - name: SEQUENCE
+                        value: parallel
+                    labels:
+                      name: pod-network-latency
+                      app.kubernetes.io/part-of: litmus
+                      app.kubernetes.io/component: experiment-job
+                      app.kubernetes.io/runtime-api-usage: "true"
+                      app.kubernetes.io/version: 2.14.0
+          - name: pod-network-latency-81c
+            path: /tmp/pod-network-latency-81c.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                description:
+                  message: |
+                    Injects network latency on pods belonging to an app deployment
+                kind: ChaosExperiment
+
+                metadata:
+                  name: pod-network-latency
+                  labels:
+                    name: pod-network-latency
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: chaosexperiment
+                    app.kubernetes.io/version: 2.14.0
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods
+                        verbs:
+                          - create
+                          - delete
+                          - get
+                          - list
+                          - patch
+                          - update
+                          - deletecollection
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - events
+                        verbs:
+                          - create
+                          - get
+                          - list
+                          - patch
+                          - update
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - configmaps
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/log
+                        verbs:
+                          - get
+                          - list
+                          - watch
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/exec
+                        verbs:
+                          - get
+                          - list
+                          - create
+                      - apiGroups:
+                          - apps
+                        resources:
+                          - deployments
+                          - statefulsets
+                          - replicasets
+                          - daemonsets
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - apps.openshift.io
+                        resources:
+                          - deploymentconfigs
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - replicationcontrollers
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - argoproj.io
+                        resources:
+                          - rollouts
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - batch
+                        resources:
+                          - jobs
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - delete
+                          - deletecollection
+                      - apiGroups:
+                          - litmuschaos.io
+                        resources:
+                          - chaosengines
+                          - chaosexperiments
+                          - chaosresults
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - patch
+                          - update
+                          - delete
+                    image: litmuschaos/go-runner:2.14.0
+                    imagePullPolicy: Always
+                    args:
+                      - -c
+                      - ./experiments -name pod-network-latency
+                    command:
+                      - /bin/bash
+                    env:
+                      - name: TARGET_CONTAINER
+                        value: ""
+                      - name: NETWORK_INTERFACE
+                        value: eth0
+                      - name: LIB_IMAGE
+                        value: litmuschaos/go-runner:2.14.0
+                      - name: TC_IMAGE
+                        value: gaiadocker/iproute2
+                      - name: NETWORK_LATENCY
+                        value: "2000"
+                      - name: TOTAL_CHAOS_DURATION
+                        value: "60"
+                      - name: RAMP_TIME
+                        value: ""
+                      - name: JITTER
+                        value: "0"
+                      - name: LIB
+                        value: litmus
+                      - name: PODS_AFFECTED_PERC
+                        value: ""
+                      - name: TARGET_PODS
+                        value: ""
+                      - name: CONTAINER_RUNTIME
+                        value: docker
+                      - name: DESTINATION_IPS
+                        value: ""
+                      - name: DESTINATION_HOSTS
+                        value: ""
+                      - name: SOCKET_PATH
+                        value: /var/run/docker.sock
+                      - name: NODE_LABEL
+                        value: ""
+                      - name: SEQUENCE
+                        value: parallel
+                    labels:
+                      name: pod-network-latency
+                      app.kubernetes.io/part-of: litmus
+                      app.kubernetes.io/component: experiment-job
+                      app.kubernetes.io/runtime-api-usage: "true"
+                      app.kubernetes.io/version: 2.14.0
+          - name: pod-network-latency-a6i
+            path: /tmp/pod-network-latency-a6i.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                description:
+                  message: |
+                    Injects network latency on pods belonging to an app deployment
+                kind: ChaosExperiment
+
+                metadata:
+                  name: pod-network-latency
+                  labels:
+                    name: pod-network-latency
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: chaosexperiment
+                    app.kubernetes.io/version: 2.14.0
+                spec:
+                  definition:
+                    scope: Namespaced
+                    permissions:
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods
+                        verbs:
+                          - create
+                          - delete
+                          - get
+                          - list
+                          - patch
+                          - update
+                          - deletecollection
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - events
+                        verbs:
+                          - create
+                          - get
+                          - list
+                          - patch
+                          - update
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - configmaps
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/log
+                        verbs:
+                          - get
+                          - list
+                          - watch
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - pods/exec
+                        verbs:
+                          - get
+                          - list
+                          - create
+                      - apiGroups:
+                          - apps
+                        resources:
+                          - deployments
+                          - statefulsets
+                          - replicasets
+                          - daemonsets
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - apps.openshift.io
+                        resources:
+                          - deploymentconfigs
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - ""
+                        resources:
+                          - replicationcontrollers
+                        verbs:
+                          - get
+                          - list
+                      - apiGroups:
+                          - argoproj.io
+                        resources:
+                          - rollouts
+                        verbs:
+                          - list
+                          - get
+                      - apiGroups:
+                          - batch
+                        resources:
+                          - jobs
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - delete
+                          - deletecollection
+                      - apiGroups:
+                          - litmuschaos.io
+                        resources:
+                          - chaosengines
+                          - chaosexperiments
+                          - chaosresults
+                        verbs:
+                          - create
+                          - list
+                          - get
+                          - patch
+                          - update
+                          - delete
+                    image: litmuschaos/go-runner:2.14.0
+                    imagePullPolicy: Always
+                    args:
+                      - -c
+                      - ./experiments -name pod-network-latency
+                    command:
+                      - /bin/bash
+                    env:
+                      - name: TARGET_CONTAINER
+                        value: ""
+                      - name: NETWORK_INTERFACE
+                        value: eth0
+                      - name: LIB_IMAGE
+                        value: litmuschaos/go-runner:2.14.0
+                      - name: TC_IMAGE
+                        value: gaiadocker/iproute2
+                      - name: NETWORK_LATENCY
+                        value: "2000"
+                      - name: TOTAL_CHAOS_DURATION
+                        value: "60"
+                      - name: RAMP_TIME
+                        value: ""
+                      - name: JITTER
+                        value: "0"
+                      - name: LIB
+                        value: litmus
+                      - name: PODS_AFFECTED_PERC
+                        value: ""
+                      - name: TARGET_PODS
+                        value: ""
+                      - name: CONTAINER_RUNTIME
+                        value: docker
+                      - name: DESTINATION_IPS
+                        value: ""
+                      - name: DESTINATION_HOSTS
+                        value: ""
+                      - name: SOCKET_PATH
+                        value: /var/run/docker.sock
+                      - name: NODE_LABEL
+                        value: ""
+                      - name: SEQUENCE
+                        value: parallel
+                    labels:
+                      name: pod-network-latency
+                      app.kubernetes.io/part-of: litmus
+                      app.kubernetes.io/component: experiment-job
+                      app.kubernetes.io/runtime-api-usage: "true"
+                      app.kubernetes.io/version: 2.14.0
+      outputs: {}
+      metadata: {}
+      container:
+        name: ""
+        image: litmuschaos/k8s:2.14.0
+        command:
+          - sh
+          - -c
+        args:
+          - kubectl apply -f /tmp/pod-network-latency-54e.yaml -n
+            {{workflow.parameters.adminModeNamespace}} && kubectl apply -f
+            /tmp/pod-network-latency-81c.yaml -n
+            {{workflow.parameters.adminModeNamespace}} && kubectl apply -f
+            /tmp/pod-network-latency-a6i.yaml -n
+            {{workflow.parameters.adminModeNamespace}} &&  sleep 30
+        resources: {}
+    - name: pod-network-latency-54e
+      inputs:
+        artifacts:
+          - name: pod-network-latency-54e
+            path: /tmp/chaosengine-pod-network-latency-54e.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                kind: ChaosEngine
+
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-network-latency-54e
+                  labels:
+                    workflow_run_id: "{{workflow.uid}}"
+                spec:
+                  engineState: active
+                  appinfo:
+                    appns: bank
+                    applabel: app=frontend
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-network-latency
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: NETWORK_LATENCY
+                              value: "5000"
+                            - name: JITTER
+                              value: "0"
+                            - name: CONTAINER_RUNTIME
+                              value: containerd
+                            - name: SOCKET_PATH
+                              value: /run/containerd/containerd.sock
+                            - name: PODS_AFFECTED_PERC
+                              value: "0"
+                            - name: TARGET_CONTAINER
+                              value: frontend
+                            - name: RAMP_TIME
+                              value: "150"
+                        probe:
+                          - name: Login
+                            type: httpProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 5000
+                              retry: 1
+                              interval: 1
+                              stopOnFailure: false
+                              probePollingInterval: 1
+                            httpProbe/inputs:
+                              method:
+                                post:
+                                  criteria: ==
+                                  responseCode: "200"
+                                  body: username=testuser&password=bankofanthos
+                                  contentType: application/x-www-form-urlencoded
+                              url: http://frontend.bank.svc.cluster.local:80/login
+                              insecureSkipVerify: true
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:2.14.0
+        args:
+          - -file=/tmp/chaosengine-pod-network-latency-54e.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+    - name: pod-network-latency-81c
+      inputs:
+        artifacts:
+          - name: pod-network-latency-81c
+            path: /tmp/chaosengine-pod-network-latency-81c.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                kind: ChaosEngine
+
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-network-latency-81c
+                  labels:
+                    workflow_run_id: "{{workflow.uid}}"
+                spec:
+                  engineState: active
+                  appinfo:
+                    appns: bank
+                    applabel: app=frontend
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-network-latency
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: NETWORK_LATENCY
+                              value: "5000"
+                            - name: JITTER
+                              value: "0"
+                            - name: CONTAINER_RUNTIME
+                              value: containerd
+                            - name: SOCKET_PATH
+                              value: /run/containerd/containerd.sock
+                            - name: PODS_AFFECTED_PERC
+                              value: "0"
+                            - name: TARGET_CONTAINER
+                              value: frontend
+                            - name: RAMP_TIME
+                              value: "150"
+                        probe:
+                          - name: Login
+                            type: httpProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 5000
+                              retry: 1
+                              interval: 1
+                              stopOnFailure: false
+                              probePollingInterval: 1
+                            httpProbe/inputs:
+                              method:
+                                post:
+                                  criteria: ==
+                                  responseCode: "200"
+                                  body: username=testuser&password=bankofanthos
+                                  contentType: application/x-www-form-urlencoded
+                              url: http://frontend.bank.svc.cluster.local:80/login
+                              insecureSkipVerify: true
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:2.14.0
+        args:
+          - -file=/tmp/chaosengine-pod-network-latency-81c.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+    - name: pod-network-latency-a6i
+      inputs:
+        artifacts:
+          - name: pod-network-latency-a6i
+            path: /tmp/chaosengine-pod-network-latency-a6i.yaml
+            raw:
+              data: >
+                apiVersion: litmuschaos.io/v1alpha1
+
+                kind: ChaosEngine
+
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: pod-network-latency-a6i
+                  labels:
+                    workflow_run_id: "{{workflow.uid}}"
+                spec:
+                  engineState: active
+                  appinfo:
+                    appns: bank
+                    applabel: app=frontend
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: pod-network-latency
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: NETWORK_LATENCY
+                              value: "5000"
+                            - name: JITTER
+                              value: "0"
+                            - name: CONTAINER_RUNTIME
+                              value: containerd
+                            - name: SOCKET_PATH
+                              value: /run/containerd/containerd.sock
+                            - name: PODS_AFFECTED_PERC
+                              value: "0"
+                            - name: TARGET_CONTAINER
+                              value: frontend
+                            - name: RAMP_TIME
+                              value: "150"
+                        probe:
+                          - name: Login
+                            type: httpProbe
+                            mode: Continuous
+                            runProperties:
+                              probeTimeout: 5000
+                              retry: 1
+                              interval: 1
+                              stopOnFailure: false
+                              probePollingInterval: 1
+                            httpProbe/inputs:
+                              method:
+                                post:
+                                  criteria: ==
+                                  responseCode: "200"
+                                  body: username=testuser&password=bankofanthos
+                                  contentType: application/x-www-form-urlencoded
+                              url: http://frontend.bank.svc.cluster.local:80/login
+                              insecureSkipVerify: true
+      outputs: {}
+      metadata:
+        labels:
+          weight: "10"
+      container:
+        name: ""
+        image: litmuschaos/litmus-checker:2.14.0
+        args:
+          - -file=/tmp/chaosengine-pod-network-latency-a6i.yaml
+          - -saveName=/tmp/engine-name
+        resources: {}
+  entrypoint: custom-chaos
+  arguments:
+    parameters:
+      - name: adminModeNamespace
+        value: litmus
+  serviceAccountName: argo-chaos
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+status:
+  ? startedAt
+  ? finishedAt
