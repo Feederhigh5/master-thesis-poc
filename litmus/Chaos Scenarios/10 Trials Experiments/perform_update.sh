@@ -18,7 +18,7 @@ perform_trial() {
 
     echo "Update pushed: $(date "+%Y-%m-%d %H:%M:%S")"
 
-    # Wait for 2 minutes
+    # Wait for 2 minutes (chaos time)
     sleep 120
 
     echo "Cool Down Time $(date "+%Y-%m-%d %H:%M:%S")"
@@ -33,3 +33,10 @@ perform_trial() {
 perform_trial 1
 perform_trial 2
 perform_trial 3
+perform_trial 4
+perform_trial 5
+perform_trial 6
+perform_trial 7
+perform_trial 8
+perform_trial 9
+perform_trial 10

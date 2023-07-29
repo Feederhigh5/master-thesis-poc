@@ -6,7 +6,7 @@ perform_trial() {
     echo "-------------Start Trial ${TRIAL} $(date "+%Y-%m-%d %H:%M:%S")"
     
     # Wait for 30 seconds
-    sleep 30
+    sleep 60
 
     # Increase number of users
     curl --location 'http://localhost:8822/swarm' \
@@ -16,8 +16,8 @@ perform_trial() {
 
     echo "-------------Chaos injected: $(date "+%Y-%m-%d %H:%M:%S")"
 
-    # Wait for 2 minutes
-    sleep 120
+    # Wait for 3 minutes
+    sleep 180
 
     # Decrease number of users
     curl --location 'http://localhost:8822/swarm' \
@@ -29,7 +29,7 @@ perform_trial() {
     echo "-------------Cool Down Time $(date "+%Y-%m-%d %H:%M:%S")"
 
     # Wait for 30 seconds
-    sleep 360
+    sleep 60
 
     echo "-------------Trial ${TRIAL} over $(date "+%Y-%m-%d %H:%M:%S")"
 }
@@ -38,3 +38,10 @@ perform_trial() {
 perform_trial 1
 perform_trial 2
 perform_trial 3
+perform_trial 4
+perform_trial 5
+perform_trial 6
+perform_trial 7
+perform_trial 8
+perform_trial 9
+perform_trial 10
